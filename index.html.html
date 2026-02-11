@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #ffebee;
+            color: #d32f2f;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        h1 { font-size: 2.2em; margin-bottom: 10px; padding: 0 10px; }
+        h2 { font-size: 1.5em; margin-bottom: 15px; font-style: italic; opacity: 0.9; }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border: none;
+            border-radius: 15px;
+            font-weight: bold;
+            transition: 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #f44336;
+            color: white;
+            position: relative;
+            z-index: 999;
+        }
+
+        #message {
+            display: none;
+        }
+
+        .gif-img {
+            width: 80%;
+            max-width: 280px;
+            margin: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-content">
+        <h1>Will you be my Valentine? ❤️</h1>
+        <h2>(If you say no...)</h2>
+        <img class="gif-img" src="gif1.gif" alt="Thinking of you">
+        
+        <div class="btn-container">
+            <button id="yesBtn" onclick="sayYes()">Yes</button>
+            <button id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <div id="message">
+        <h1>Yay! See you soon! 😊</h1>
+        <img class="gif-img" src="gif2.gif" alt="Cute cat hug">
+    </div>
+
+    <script>
+        function moveNoButton() {
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.position = 'fixed';
+            
+            // Boundary math so it stays on the screen
+            const padding = 20;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+            
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+
+            // Make 'Yes' button grow slightly to be more tempting
+            const yesBtn = document.getElementById('yesBtn');
+            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            if (currentSize < 50) {
+                yesBtn.style.fontSize = (currentSize + 2) + 'px';
+            }
+        }
+
+        function sayYes() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('message').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
